@@ -21,6 +21,11 @@ html{
   flex-direction: row;
   gap:10px;
 }
+.todo-list__box {
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+}
 
 .todo-list{
   padding:0;
