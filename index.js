@@ -232,9 +232,7 @@ const Controller = ((view, model) => {
                     const id = event.target.getAttribute("data-id");
                     model.updateTodo(+id, {content: editInput.value}).then((data) => {
                         state.todos = state.todos.filter((todo) => {
-                            if (todo.id === +id) {
-                                todo.content = editInput.value;
-                            }
+                            if (todo.id === +id) todo.content = editInput.value;
                             return todo;
                         });
                         event.target.removeAttribute("editing");
@@ -260,9 +258,7 @@ const Controller = ((view, model) => {
 
                 model.updateTodo(+id, {completed: !event.target.hasAttribute("completed")}).then((data) => {
                     state.todos = state.todos.filter((todo) => {
-                        if (todo.id === +id) {
-                            todo.completed = !todo.completed;
-                        }
+                        if (todo.id === +id) todo.completed = !todo.completed;
                         return todo;
                     });
 
