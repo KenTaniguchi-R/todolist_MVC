@@ -22,31 +22,50 @@
         console.log(data);
     }); */
 
+
+function myFetch(url, options={}){
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(options.method || 'GET', url);
+        if (options.body) xhr.setRequestHeader(...Object.entries(options.headers)[0]);
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            resolve(xhr.response);
+        }
+        xhr.onerror = () => {
+            reject(xhr.statusText);
+        }
+        xhr.send(options.body);
+    });
+}
+
+
+
 const APIs = (() => {
     const createTodo = (newTodo) => {
-        return fetch("http://localhost:3000/todos", {
+        return myFetch("http://localhost:3000/todos", {
             method: "POST",
             body: JSON.stringify(newTodo),
             headers: { "Content-Type": "application/json" },
-        }).then((res) => res.json());
+        })
     };
 
     const deleteTodo = (id) => {
-        return fetch("http://localhost:3000/todos/" + id, {
+        return myFetch("http://localhost:3000/todos/" + id, {
             method: "DELETE",
-        }).then((res) => res.json());
+        })
     };
 
     const getTodos = () => {
-        return fetch("http://localhost:3000/todos").then((res) => res.json());
+        return myFetch("http://localhost:3000/todos")
     };
 
     const updateTodo = (id, updatedTodo) => {
-        return fetch("http://localhost:3000/todos/" + id, {
+        return myFetch("http://localhost:3000/todos/" + id, {
             method: "PATCH",
             body: JSON.stringify(updatedTodo),
             headers: { "Content-Type": "application/json" },
-        }).then((res) => res.json());
+        })
     };
     return { createTodo, deleteTodo, getTodos, updateTodo };
 })();
