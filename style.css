@@ -1,13 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --tan: #e6e2d3;
+  --ivory_white: #f0f0f0;
+  --yellow_green: #4caf50;
+  --vermillion_red: #c94c4c;
+  --blue: #008cba;
+}
+
 .app{
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  border-radius: 5px;
   width: fit-content;
   padding:10px;
   text-align: center;
   gap:10px;
-  align-items: stretch;
+  align-items: center;
 
 }
 
@@ -21,10 +33,32 @@ html{
   flex-direction: row;
   gap:10px;
 }
+
+.form button {
+  background-color: var(--blue);
+  color: var(--ivory_white);
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 .todo-list__box {
   display: flex;
   flex-direction: row;
   gap:10px;
+}
+
+.todo-list__todos {
+  width: 400px;
+  background-color: var(--ivory_white);
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 400px;
+}
+
+h5 {
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .todo-list{
@@ -39,10 +73,46 @@ html{
 .todo-list li{
   display: flex;
   justify-content: space-between;
+  background-color: var(--tan);
+  padding: 5px;
+  border-radius: 5px;
+  gap: 5px;
 }
 .todo-list li span{
   flex-grow: 1;
   text-align: center;
 }
+.todo-list li input{
+  flex-grow: 1;
+}
 
+.todo-list button {
+  color: var(--ivory_white);
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  width: 25px;
+  height: 25px;
+}
 
+.edit-btn{
+  background-color: var(--blue);
+}
+
+.delete-btn{
+  background-color: var(--vermillion_red);
+}
+
+.complete-btn{
+  background-color: var(--yellow_green);
+}
+
+svg {
+  fill: var(--ivory_white);
+  pointer-events: none;
+}
+
+button:hover {
+  cursor: pointer;
+  background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
+}
