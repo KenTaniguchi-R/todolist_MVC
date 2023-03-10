@@ -133,7 +133,16 @@ const View = (() => {
         let pending_count = 0;
         let completed_count = 0;
 
-        todos.forEach((todo) => {
+        const pending_list = todos.filter((todo) => !todo.completed)
+        const completed_list = todos.filter((todo) => todo.completed)
+
+        completed_list.sort(function(a,b){
+            return new Date(b.completed_time) - new Date(a.completed_time);
+        });
+
+        const new_todos = [...pending_list, ...completed_list]
+
+        new_todos.forEach((todo) => {
             const liTemplate = `
             <li>
                 ${todo.completed ? `<button class="complete-btn" completed data-id="${todo.id}">
@@ -255,10 +264,16 @@ const Controller = ((view, model) => {
         function updateComplete(event) {
             if (event.target.className === "complete-btn") {
                 const id = event.target.getAttribute("data-id");
-
-                model.updateTodo(+id, {completed: !event.target.hasAttribute("completed")}).then((data) => {
+                const data = {
+                    completed: !event.target.hasAttribute("completed"),
+                    completed_time: new Date().toISOString(),
+                }
+                model.updateTodo(+id, data ).then((data) => {
                     state.todos = state.todos.filter((todo) => {
-                        if (todo.id === +id) todo.completed = !todo.completed;
+                        if (todo.id === +id) {
+                            todo.completed = !todo.completed;
+                            todo.completed_time = data.completed_time;
+                        };
                         return todo;
                     });
 
